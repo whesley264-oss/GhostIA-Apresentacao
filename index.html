@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostIA - Inteligência Artificial Avançada</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #00d9ff;
+            --secondary-color: #0a1628;
+            --accent-color: #1e3a5f;
+            --text-color: #ffffff;
+            --gradient-1: linear-gradient(135deg, #0a1628 0%, #1e3a5f 100%);
+            --gradient-2: linear-gradient(135deg, #00d9ff 0%, #0080ff 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--secondary-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            filter: drop-shadow(0 0 10px var(--primary-color));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--gradient-2);
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+        }
+
+        .mobile-menu svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-1);
+            position: relative;
+            overflow: hidden;
+            padding: 120px 5% 80px;
+        }
+
+        .hero-content {
+            max-width: 1600px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.1s backwards;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #a0b4cc;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 217, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #a0b4cc;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--gradient-2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 25px rgba(0, 217, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 217, 255, 0.5);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            animation: fadeInRight 1s ease;
+        }
+
+        .hero-logo {
+            width: 100%;
+            max-width: 550px;
+            filter: drop-shadow(0 0 50px var(--primary-color));
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { filter: drop-shadow(0 0 50px var(--primary-color)); }
+            50% { filter: drop-shadow(0 0 80px var(--primary-color)); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Particles Background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: particleFloat 15s infinite;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(100px, -100px) scale(1.5); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 120px 5%;
+            background: var(--secondary-color);
+        }
+
+        .about-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: #a0b4cc;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 4rem;
+        }
+
+        .about-text {
+            background: var(--accent-color);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: #a0b4cc;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .about-highlights {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(0, 217, 255, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .highlight-item svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--primary-color);
+            min-width: 30px;
+        }
+
+        .highlight-item span {
+            color: #a0b4cc;
+            font-size: 1.05rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 5%;
+            background: var(--gradient-1);
+        }
+
+        .features-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .features-intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 5rem;
+        }
+
+        .features-intro p {
+            font-size: 1.2rem;
+            color: #a0b4cc;
+            line-height: 1.9;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: rgba(30, 58, 95, 0.5);
+            padding: 3rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 217, 255, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card p {
+            color: #a0b4cc;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+            font-size: 1.05rem;
+        }
+
+        .feature-details {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-details ul {
+            list-style: none;
+        }
+
+        .feature-details li {
+            color: #7a8fa8;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-details li:before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        /* Technology Section */
+        .technology {
+            padding: 120px 5%;
+            background: var(--secondary-color);
+        }
+
+        .tech-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .tech-card {
+            background: var(--accent-color);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.3);
+            transform: scale(1.02);
+        }
+
+        .tech-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-logo {
+            width: 60px;
+            height: 60px;
+        }
+
+        .tech-logo svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--primary-color);
+        }
+
+        .tech-card h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .tech-description {
+            color: #a0b4cc;
+            line-height: 1.9;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .tech-features {
+            list-style: none;
+        }
+
+        .tech-features li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+            color: #a0b4cc;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tech-features li:before {
+            content: '✓';
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* Capabilities Deep Dive */
+        .capabilities-deep {
+            padding: 120px 5%;
+            background: var(--gradient-1);
+        }
+
+        .capabilities-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .capability-section {
+            margin-bottom: 5rem;
+        }
+
+        .capability-header {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .capability-icon-large {
+            width: 200px;
+            height: 200px;
+            background: rgba(0, 217, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--primary-color);
+            margin: 0 auto;
+        }
+
+        .capability-icon-large svg {
+            width: 100px;
+            height: 100px;
+            fill: var(--primary-color);
+        }
+
+        .capability-info h3 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .capability-info p {
+            font-size: 1.2rem;
+            color: #a0b4cc;
+            line-height: 1.9;
+        }
+
+        .capability-details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .detail-card {
+            background: rgba(30, 58, 95, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .detail-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .detail-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .detail-card p {
+            color: #a0b4cc;
+            line-height: 1.7;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 120px 5%;
+            background: var(--secondary-color);
+        }
+
+        .team-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .team-intro {
+            max-width: 900px;
+            margin: 0 auto 5rem;
+            text-align: center;
+        }
+
+        .team-intro p {
+            font-size: 1.2rem;
+            color: #a0b4cc;
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+
+        .team-vision {
+            background: var(--accent-color);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            margin-bottom: 4rem;
+        }
+
+        .team-vision h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .team-vision p {
+            color: #a0b4cc;
+            line-height: 1.9;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .team-member {
+            text-align: center;
+            background: var(--accent-color);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 217, 255, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .team-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--gradient-2);
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.4);
+        }
+
+        .team-avatar svg {
+            width: 80px;
+            height: 80px;
+            fill: white;
+        }
+
+        .team-member h3 {
+            font-size: 1.7rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .team-role {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .team-age {
+            color: #7a8fa8;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-description {
+            color: #a0b4cc;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Languages Section */
+        .languages {
+            padding: 120px 5%;
+            background: var(--gradient-1);
+        }
+
+        .languages-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .languages-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .languages-intro p {
+            font-size: 1.2rem;
+            color: #a0b4cc;
+            line-height: 1.9;
+        }
+
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+        }
+
+        .language-item {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: rgba(30, 58, 95, 0.5);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .language-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
+        }
+
+        .language-flag {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .language-name {
+            display: block;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 22, 40, 0.98);
+            padding: 4rem 5%;
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .footer-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-about h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            color: #a0b4cc;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #a0b4cc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 217, 255, 0.1);
+            color: #7a8fa8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            fill: var(--primary-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 10px var(--primary-color));
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .capability-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .capability-details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .languages-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 568px) {
+            .languages-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <svg class="logo-img" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0080ff;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="90" fill="url(#logoGrad)" opacity="0.2"/>
+                    <path d="M100 40 L140 80 L140 120 L120 140 L80 140 L60 120 L60 80 Z" fill="url(#logoGrad)"/>
+                    <ellipse cx="80" cy="85" rx="12" ry="20" fill="#00d9ff"/>
+                    <ellipse cx="120" cy="85" rx="12" ry="20" fill="#00d9ff"/>
+                    <path d="M70 120 Q100 130 130 120" stroke="#00d9ff" stroke-width="3" fill="none"/>
+                </svg>
+                <span>GhostIA</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#features">Recursos</a></li>
+                <li><a href="#technology">Tecnologia</a></li>
+                <li><a href="#capabilities">Capacidades</a></li>
+                <li><a href="#team">Equipe</a></li>
+                <li><a href="#languages">Idiomas</a></li>
+                <li><a href="#contact" class="nav-cta">Contato</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="particles">
+            <div class="particle" style="width: 4px; height: 4px; left: 10%; top: 20%; animation-delay: 0s;"></div>
+            <div class="particle" style="width: 6px; height: 6px; left: 80%; top: 30%; animation-delay: 2s;"></div>
+            <div class="particle" style="width: 3px; height: 3px; left: 50%; top: 50%; animation-delay: 4s;"></div>
+            <div class="particle" style="width: 5px; height: 5px; left: 20%; top: 70%; animation-delay: 1s;"></div>
+            <div class="particle" style="width: 4px; height: 4px; left: 90%; top: 60%; animation-delay: 3s;"></div>
+            <div class="particle" style="width: 5px; height: 5px; left: 40%; top: 80%; animation-delay: 5s;"></div>
+            <div class="particle" style="width: 3px; height: 3px; left: 70%; top: 15%; animation-delay: 6s;"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="subtitle">Inovação Desenvolvida por Jovens Brasileiros</div>
+                <h1>GhostIA</h1>
+                <p>A mais avançada plataforma de inteligência artificial desenvolvida inteiramente por estudantes brasileiros de 13-14 anos. Combinando os modelos mais poderosos do mercado - ChatGPT e Gemini - em uma interface única, intuitiva e repleta de recursos revolucionários.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Idiomas Suportados</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Modelos de IA</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Brasileiro</span>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="#features" class="cta-button">Explorar Recursos</a>
+                    <a href="#team" class="cta-button secondary">Conhecer a Equipe</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <svg class="hero-logo" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0080ff;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="200" cy="200" r="180" fill="url(#mainGrad)" opacity="0.1"/>
+                    <circle cx="200" cy="200" r="150" fill="none" stroke="url(#mainGrad)" stroke-width="2" opacity="0.3"/>
+                    <circle cx="200" cy="200" r="120" fill="none" stroke="url(#mainGrad)" stroke-width="2" opacity="0.3"/>
+                    <path d="M200 80 L280 160 L280 240 L240 280 L160 280 L120 240 L120 160 Z" 
+                          fill="url(#mainGrad)" opacity="0.8" filter="url(#glow)"/>
+                    <ellipse cx="160" cy="170" rx="24" ry="40" fill="#00d9ff" filter="url(#glow)"/>
+                    <ellipse cx="240" cy="170" rx="24" ry="40" fill="#00d9ff" filter="url(#glow)"/>
+                    <path d="M140 240 Q200 260 260 240" stroke="#00d9ff" stroke-width="6" 
+                          fill="none" filter="url(#glow)"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="section-header">
+                <h2 class="section-title">Sobre a GhostIA</h2>
+                <p class="section-subtitle">Uma revolução tecnológica criada por mentes jovens e brilhantes, desafiando os limites da inovação e provando que idade não define capacidade.</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Nossa História</h3>
+                    <p>A GhostIA nasceu da paixão de quatro estudantes brasileiros que acreditaram no impossível. Com idades entre 13 e 14 anos, Whesley, Raul, Ismael e Jailan uniram seus conhecimentos em programação, design e inteligência artificial para criar algo verdadeiramente extraordinário.</p>
+                    <p>O projeto começou como um desafio escolar, mas rapidamente evoluiu para uma plataforma completa de IA que rivaliza com soluções profissionais do mercado. Cada linha de código, cada funcionalidade e cada detalhe foi cuidadosamente pensado e desenvolvido por essa equipe dedicada.</p>
+                    <p>Hoje, a GhostIA representa não apenas uma ferramenta tecnológica avançada, mas também um símbolo de que jovens brasileiros têm o potencial de criar soluções de classe mundial.</p>
+                </div>
+
+                <div class="about-highlights">
+                    <div class="highlight-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span>Arquitetura modular e escalável desenvolvida do zero</span>
+                    </div>
+                    <div class="highlight-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <span>Interface intuitiva projetada com foco na experiência do usuário</span>
+                    </div>
+                    <div class="highlight-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                        </svg>
+                        <span>Sistema de configurações completo e personalizável</span>
+                    </div>
+                    <div class="highlight-item">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                        <span>Integração perfeita com múltiplos modelos de IA líderes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="section-header">
+                <h2 class="section-title">Recursos Avançados</h2>
+                <div class="features-intro">
+                    <p>A GhostIA oferece um conjunto completo de funcionalidades que transformam a maneira como você interage com inteligência artificial. Cada recurso foi cuidadosamente desenvolvido para proporcionar a melhor experiência possível.</p>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                        </svg>
+                    </div>
+                    <h3>Conversação Inteligente</h3>
+                    <p>Sistema de conversação avançado que entende contexto, nuances e intenções. Mantém histórico completo das conversas e aprende com cada interação para oferecer respostas cada vez mais precisas e personalizadas.</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li>Processamento de linguagem natural de última geração</li>
+                            <li>Memória contextual de conversas longas</li>
+                            <li>Respostas estruturadas e bem formatadas</li>
+                            <li>Suporte a múltiplos tópicos simultaneamente</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                        </svg>
+                    </div>
+                    <h3>Personalização Extrema</h3>
+                    <p>Configure cada aspecto da GhostIA de acordo com suas preferências. Desde a aparência visual até o comportamento da IA, tudo pode ser ajustado para criar sua experiência perfeita.</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li>Temas claro, escuro e personalizados</li>
+                            <li>Escolha entre 15+ fontes diferentes</li>
+                            <li>Ajuste de tamanho de texto e espaçamento</li>
+                            <li>Foto de perfil customizável</li>
+                            <li>Prompts de comportamento da IA</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                        </svg>
+                    </div>
+                    <h3>Geração de Imagens</h3>
+                    <p>Crie imagens impressionantes e únicas a partir de descrições textuais. Nossa tecnologia de geração utiliza os modelos mais avançados para transformar suas ideias em arte visual.</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li>Múltiplos estilos artísticos disponíveis</li>
+                            <li>Controle fino sobre parâmetros de geração</li>
+                            <li>Geração em alta resolução</li>
+                            <li>Histórico de imagens geradas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                        </svg>
+                    </div>
+                    <h3>Análise de Imagens</h3>
+                    <p>Faça upload de qualquer imagem e receba análises detalhadas, descrições precisas e insights valiosos. A GhostIA pode identificar objetos, pessoas, textos e muito mais.</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li>Reconhecimento de objetos e cenas</li>
+                            <li>Extração de texto (OCR)</li>
+                            <li>Análise de cores e composição</li>
+                            <li>Descrições detalhadas e contextuais</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+                        </svg>
+                    </div>
+                    <h3>Comando por Voz</h3>
+                    <p>Interaja com a GhostIA usando sua voz natural. O sistema de reconhecimento de fala converte automaticamente suas palavras em texto, permitindo uma experiência hands-free.</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li>Reconhecimento de fala em tempo real</li>
+                            <li>Suporte a comandos de voz</li>
+                            <li>Transcrição automática e precisa</li>
+                            <li>Funciona em todos os idiomas suportados</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                        </svg>
+                    </div>
+                    <h3>Síntese de Voz</h3>
+                    <p>Ouça as respostas da IA com vozes naturais e expressivas. Ideal para multitarefa, acessibilidade ou simplesmente para uma experiência mais rica e imersiva.</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li>Múltiplas vozes disponíveis</li>
+                            <li>Controle de velocidade e tom</li>
+                            <li>Reprodução de alta qualidade</li>
+                            <li>Download de áudio opcional</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                        </svg>
+                    </div>
+                    <h3>Regeneração de Respostas</h3>
+                    <p>Não satisfeito com uma resposta? Regenere-a com um clique para obter perspectivas diferentes ou informações mais detalhadas sobre o mesmo tópico.</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li>Regeneração ilimitada</li>
+                            <li>Mantém histórico de versões</li>
+                            <li>Opção de ajuste de parâmetros</li>
+                            <li>Comparação entre respostas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                    </div>
+                    <h3>Copiar e Exportar</h3>
+                    <p>Copie respostas facilmente ou exporte conversas completas em diversos formatos. Perfeito para compartilhar insights ou salvar informações importantes.</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li>Cópia com formatação preservada</li>
+                            <li>Exportação em TXT, MD, PDF</li>
+                            <li>Compartilhamento direto</li>
+                            <li>Seleção de mensagens específicas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+                        </svg>
+                    </div>
+                    <h3>Suporte Multilíngue</h3>
+                    <p>Comunique-se em 10 idiomas diferentes com a mesma qualidade e precisão. A GhostIA quebra barreiras linguísticas e torna a IA acessível globalmente.</p>
+                    <div class="feature-details">
+                        <ul>
+                            <li>Português, Inglês, Espanhol, Francês, Alemão</li>
+                            <li>Italiano, Japonês, Chinês, Coreano, Russo</li>
+                            <li>Tradução automática entre idiomas</li>
+                            <li>Interface adaptada para cada língua</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology" id="technology">
+        <div class="tech-container">
+            <div class="section-header">
+                <h2 class="section-title">Tecnologia de Ponta</h2>
+                <p class="section-subtitle">A GhostIA integra os modelos de IA mais avançados do mercado, oferecendo o melhor de cada plataforma em um único lugar.</p>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <div class="tech-logo">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+                            </svg>
+                        </div>
+                        <h3>OpenAI ChatGPT</h3>
+                    </div>
+                    <p class="tech-description">Integração completa com os modelos GPT mais avançados da OpenAI, incluindo GPT-4 Turbo e GPT-3.5. Acesse o poder da inteligência artificial mais sofisticada do mundo diretamente pela GhostIA.</p>
+                    <ul class="tech-features">
+                        <li>GPT-4 Turbo: Modelo mais inteligente com capacidade de processamento massivo de contexto</li>
+                        <li>GPT-4: Raciocínio avançado e compreensão profunda de instruções complexas</li>
+                        <li>GPT-3.5 Turbo: Velocidade otimizada para respostas rápidas e eficientes</li>
+                        <li>Contextualização de até 128k tokens para conversas extremamente longas</li>
+                        <li>Capacidade multimodal com processamento de imagens e texto</li>
+                        <li>Raciocínio lógico e matemático de nível superior</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-header">
+                        <div class="tech-logo">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3>Google Gemini</h3>
+                    </div>
+                    <p class="tech-description">Acesso aos modelos Gemini do Google, projetados para análise multimodal avançada e integração perfeita com o ecossistema Google. Combine o melhor dos dois mundos em uma única plataforma.</p>
+                    <ul class="tech-features">
+                        <li>Gemini Ultra: Desempenho excepcional em tarefas altamente complexas</li>
+                        <li>Gemini Pro: Equilíbrio perfeito entre capacidade e eficiência</li>
+                        <li>Processamento nativo de múltiplas modalidades (texto, imagem, áudio)</li>
+                        <li>Raciocínio avançado e compreensão contextual profunda</li>
+                        <li>Integração com conhecimento atualizado do Google</li>
+                        <li>Análise de código e geração de soluções técnicas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Deep Dive -->
+    <section class="capabilities-deep" id="capabilities">
+        <div class="capabilities-container">
+            <div class="section-header">
+                <h2 class="section-title">Capacidades Detalhadas</h2>
+                <p class="section-subtitle">Explore em profundidade cada uma das funcionalidades que tornam a GhostIA única no mercado de inteligência artificial.</p>
+            </div>
+
+            <!-- Voice Capabilities -->
+            <div class="capability-section">
+                <div class="capability-header">
+                    <div class="capability-icon-large">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+                        </svg>
+                    </div>
+                    <div class="capability-info">
+                        <h3>Sistema de Áudio Completo</h3>
+                        <p>A GhostIA oferece um sistema de áudio bidirecional completo, permitindo tanto entrada por voz quanto saída em formato de áudio. Utilize comandos de voz para interagir naturalmente e ouça as respostas com vozes sintetizadas de alta qualidade, criando uma experiência verdadeiramente conversacional.</p>
+                    </div>
+                </div>
+                <div class="capability-details-grid">
+                    <div class="detail-card">
+                        <h4>Reconhecimento de Fala</h4>
+                        <p>Motor de reconhecimento de fala de última geração que converte sua voz em texto com precisão excepcional, funcionando em tempo real e suportando todos os 10 idiomas disponíveis na plataforma.</p>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Síntese de Voz Natural</h4>
+                        <p>Vozes sintetizadas extremamente naturais e expressivas, com suporte a ajuste de velocidade, tom e até emoção, criando uma experiência auditiva rica e agradável.</p>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Comandos de Voz</h4>
+                        <p>Execute ações e navegue pela interface usando apenas comandos de voz, tornando a interação mais acessível e conveniente para diferentes situações de uso.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Capabilities -->
+            <div class="capability-section">
+                <div class="capability-header">
+                    <div class="capability-icon-large">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                        </svg>
+                    </div>
+                    <div class="capability-info">
+                        <h3>Processamento Avançado de Imagens</h3>
+                        <p>Capacidades completas de geração, análise e manipulação de imagens. A GhostIA não apenas cria imagens impressionantes a partir de texto, mas também analisa imagens existentes com precisão, identificando objetos, pessoas, textos e contextos complexos.</p>
+                    </div>
+                </div>
+                <div class="capability-details-grid">
+                    <div class="detail-card">
+                        <h4>Geração de Arte</h4>
+                        <p>Crie imagens únicas e personalizadas usando descrições textuais detalhadas. Escolha entre diversos estilos artísticos, desde fotorrealismo até arte abstrata e ilustrações estilizadas.</p>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Análise Visual</h4>
+                        <p>Faça upload de imagens e receba análises detalhadas incluindo identificação de objetos, reconhecimento de cenas, extração de texto (OCR) e compreensão contextual do conteúdo visual.</p>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Edição Inteligente</h4>
+                        <p>Modifique imagens existentes usando comandos em linguagem natural, remova elementos indesejados, altere estilos ou adicione novos componentes de forma intuitiva.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customization Capabilities -->
+            <div class="capability-section">
+                <div class="capability-header">
+                    <div class="capability-icon-large">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                        </svg>
+                    </div>
+                    <div class="capability-info">
+                        <h3>Personalização Total da Interface</h3>
+                        <p>Adapte completamente a GhostIA ao seu estilo e preferências. Desde a aparência visual até o comportamento da IA, cada aspecto pode ser configurado para criar uma experiência verdadeiramente única e personalizada.</p>
+                    </div>
+                </div>
+                <div class="capability-details-grid">
+                    <div class="detail-card">
+                        <h4>Temas Visuais</h4>
+                        <p>Escolha entre tema claro, escuro ou crie paletas de cores personalizadas. Ajuste contraste, saturação e outros parâmetros visuais para conforto máximo em qualquer ambiente.</p>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Tipografia Customizada</h4>
+                        <p>Selecione entre mais de 15 famílias de fontes diferentes, ajuste tamanhos, pesos e espaçamento para criar a experiência de leitura perfeita para suas necessidades.</p>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Comportamento da IA</h4>
+                        <p>Configure como a IA responde através de prompts de sistema personalizados. Defina tom, estilo, profundidade e formato das respostas de acordo com seu contexto de uso.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Selection -->
+            <div class="capability-section">
+                <div class="capability-header">
+                    <div class="capability-icon-large">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <div class="capability-info">
+                        <h3>Seleção Inteligente de Modelos</h3>
+                        <p>Escolha entre múltiplos modelos de IA de acordo com suas necessidades específicas. Cada modelo tem seus pontos fortes, e a GhostIA permite alternar entre eles facilmente para obter os melhores resultados em cada situação.</p>
+                    </div>
+                </div>
+                <div class="capability-details-grid">
+                    <div class="detail-card">
+                        <h4>Modelos OpenAI</h4>
+                        <p>GPT-4 Turbo para tarefas complexas, GPT-4 para raciocínio avançado, GPT-3.5 Turbo para respostas rápidas. Cada modelo otimizado para diferentes cenários de uso.</p>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Modelos Google</h4>
+                        <p>Gemini Ultra para desafios extremos, Gemini Pro para uso geral equilibrado. Acesse o poder da IA do Google com interface familiar.</p>
+                    </div>
+                    <div class="detail-card">
+                        <h4>Seleção Automática</h4>
+                        <p>Deixe a GhostIA escolher automaticamente o melhor modelo para cada tarefa, considerando complexidade, velocidade necessária e tipo de conteúdo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="team-container">
+            <div class="section-header">
+                <h2 class="section-title">Conheça Nossa Equipe</h2>
+                <div class="team-intro">
+                    <p>Quatro jovens brasileiros unidos pela paixão por tecnologia e inovação. Com idades entre 13 e 14 anos, esta equipe extraordinária provou que talento e determinação não têm idade mínima.</p>
+                </div>
+            </div>
+
+            <div class="team-vision">
+                <h3>Nossa Visão</h3>
+                <p>Democratizar o acesso à inteligência artificial de ponta, tornando-a acessível, intuitiva e poderosa para todos. Acreditamos que a tecnologia deve ser uma ferramenta de empoderamento, e a GhostIA é nossa contribuição para um futuro onde a IA beneficia toda a humanidade.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                    </div>
+                    <h3>Whesley</h3>
+                    <p class="team-role">Programador Líder</p>
+                    <p class="team-age">13 anos</p>
+                    <p class="team-description">Arquiteto principal do projeto, responsável pela estrutura core da GhostIA e integração dos modelos de IA. Sua visão técnica e liderança foram fundamentais para transformar a ideia em realidade.</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                    </div>
+                    <h3>Raul</h3>
+                    <p class="team-role">Braço Direito - Ideias</p>
+                    <p class="team-age">13 anos</p>
+                    <p class="team-description">Raul teve um papel importante dando ideias e sugestões isso foi muito útil e importante para a criação da GhostIA .</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                    </div>
+                    <h3>Ismael</h3>
+                    <p class="team-role">Braço Esquerdo - Designer</p>
+                    <p class="team-age">14 anos</p>
+                    <p class="team-description">Ismael teve um papel muito importante deu ideias e aplicou algumas dessas ideias no projeto para dar um visual diferente e único para a GhostIA</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-avatar">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        </svg>
+                    </div>
+                    <h3>Jailan</h3>
+                    <p class="team-role"> Ajudante - Testes</p>
+                    <p class="team-age">14 anos</p>
+                    <p class="team-description">Responsável por testes, verificar se estava tudo correto fez um excelente trabalho graças a ele podemos garantir que a GhostIA esta sem erros</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Languages Section -->
+    <section class="languages" id="languages">
+        <div class="languages-container">
+            <div class="section-header">
+                <h2 class="section-title">Comunicação Global</h2>
+                <div class="languages-intro">
+                    <p>A GhostIA fala sua língua. Com suporte completo para 10 idiomas diferentes, quebramos barreiras linguísticas e tornamos a inteligência artificial verdadeiramente acessível ao redor do mundo.</p>
+                </div>
+            </div>
+
+            <div class="languages-grid">
+                <div class="language-item">
+                    <div class="language-flag">🇧🇷</div>
+                    <span class="language-name">Português</span>
+                </div>
+                <div class="language-item">
+                    <div class="language-flag">🇺🇸</div>
+                    <span class="language-name">Inglês</span>
+                </div>
+                <div class="language-item">
+                    <div class="language-flag">🇪🇸</div>
+                    <span class="language-name">Espanhol</span>
+                </div>
+                <div class="language-item">
+                    <div class="language-flag">🇫🇷</div>
+                    <span class="language-name">Francês</span>
+                </div>
+                <div class="language-item">
+                    <div class="language-flag">🇩🇪</div>
+                    <span class="language-name">Alemão</span>
+                </div>
+                <div class="language-item">
+                    <div class="language-flag">🇮🇹</div>
+                    <span class="language-name">Italiano</span>
+                </div>
+                <div class="language-item">
+                    <div class="language-flag">🇯🇵</div>
+                    <span class="language-name">Japonês</span>
+                </div>
+                <div class="language-item">
+                    <div class="language-flag">🇨🇳</div>
+                    <span class="language-name">Chinês</span>
+                </div>
+                <div class="language-item">
+                    <div class="language-flag">🇰🇷</div>
+                    <span class="language-name">Coreano</span>
+                </div>
+                <div class="language-item">
+                    <div class="language-flag">🇷🇺</div>
+                    <span class="language-name">Russo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Final -->
+    <section class="hero" style="min-height: 70vh;">
+        <div class="hero-content" style="grid-template-columns: 1fr; text-align: center;">
+            <div class="hero-text">
+                <h1 style="font-size: 3.5rem;">Experimente o Futuro da IA</h1>
+                <p style="font-size: 1.3rem; max-width: 800px; margin: 0 auto 3rem;">A GhostIA representa uma nova era de inteligência artificial acessível e poderosa. Desenvolvida por jovens, para todos. Junte-se a nós nesta jornada revolucionária.</p>
+                <div class="cta-buttons" style="justify-content: center;">
+                    <a href="#" class="cta-button">Começar Agora</a>
+                    <a href="#about" class="cta-button secondary">Saber Mais</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="logo" style="justify-content: flex-start; margin-bottom: 1.5rem;">
+                        <svg class="logo-img" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#0080ff;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="100" cy="100" r="90" fill="url(#footerGrad)" opacity="0.2"/>
+                            <path d="M100 40 L140 80 L140 120 L120 140 L80 140 L60 120 L60 80 Z" fill="url(#footerGrad)"/>
+                            <ellipse cx="80" cy="85" rx="12" ry="20" fill="#00d9ff"/>
+                            <ellipse cx="120" cy="85" rx="12" ry="20" fill="#00d9ff"/>
+                            <path d="M70 120 Q100 130 130 120" stroke="#00d9ff" stroke-width="3" fill="none"/>
+                        </svg>
+                        <span>GhostIA</span>
+                    </div>
+                    <p>Inteligência artificial avançada desenvolvida por estudantes brasileiros. Democratizando o acesso à tecnologia de ponta e provando que inovação não tem idade.</p>
+                    <div class="social-links">
+                        <svg class="social-icon" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <svg class="social-icon" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                        <svg class="social-icon" viewBox="0 0 24 24">
+                            <rect x="4" y="4" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Navegação</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#features">Recursos</a></li>
+                        <li><a href="#technology">Tecnologia</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Projeto</h4>
+                    <ul class="footer-links">
+                        <li><a href="#capabilities">Capacidades</a></li>
+                        <li><a href="#team">Equipe</a></li>
+                        <li><a href="#languages">Idiomas</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Informações</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Suporte</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>2024 GhostIA - Projeto Educacional</p>
+                <p style="margin-top: 0.5rem;">Desenvolvido com dedicação por Whesley, Raul, Ismael e Jailan</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Estudantes Brasileiros - 13-14 anos</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                header.style.background = 'rgba(10, 22, 40, 0.98)';
+                header.style.boxShadow = '0 4px 30px rgba(0, 217, 255, 0.2)';
+            } else {
+                header.style.background = 'rgba(10, 22, 40, 0.95)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 217, 255, 0.1)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.feature-card, .team-member, .tech-card, .detail-card, .language-item, .capability-section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Particle animation
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach((particle, index) => {
+            setInterval(() => {
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                particle.style.left = x + '%';
+                particle.style.top = y + '%';
+            }, 5000 + index * 1000);
+        });
+
+        // Loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
